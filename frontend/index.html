@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career-Pilot AI - Resume Tailoring</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <h1>Career-Pilot AI</h1>
+                </div>
+                <p class="subtitle">Local-First Resume Tailoring Powered by AI</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Status Indicator -->
+            <div class="status-card" id="statusCard">
+                <div class="status-content">
+                    <i class="fas fa-circle-notch fa-spin" id="statusIcon"></i>
+                    <span id="statusText">Checking system status...</span>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <div class="upload-card">
+                    <h2><i class="fas fa-upload"></i> Upload Your Master Resume</h2>
+                    <p>Upload your comprehensive resume that contains all your experience and skills.</p>
+                    
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="upload-content">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Drag & drop your resume here or <span class="browse-link">browse files</span></p>
+                            <small>Supports .txt, .md, .pdf files</small>
+                        </div>
+                        <input type="file" id="resumeFile" accept=".txt,.md,.pdf" hidden>
+                    </div>
+                    
+                    <button class="upload-btn" id="uploadBtn" disabled>
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Upload Resume
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Description Section -->
+            <div class="job-description-section">
+                <div class="job-description-card">
+                    <h2><i class="fas fa-briefcase"></i> Job Description</h2>
+                    <p>Paste the job description you want to tailor your resume for.</p>
+                    
+                    <div class="input-group">
+                        <label for="jobDescription">Job Description:</label>
+                        <textarea 
+                            id="jobDescription" 
+                            placeholder="Paste the job description here...&#10;&#10;Example:&#10;We are looking for a Senior Software Engineer with experience in Python, FastAPI, and cloud technologies. The ideal candidate should have experience with microservices architecture, CI/CD pipelines, and mentoring junior developers..."
+                            rows="8"
+                        ></textarea>
+                    </div>
+                    
+                    <button class="tailor-btn" id="tailorBtn" disabled>
+                        <i class="fas fa-magic"></i>
+                        Generate Tailored Resume
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <!-- ATS Score Card -->
+                <div class="ats-score-card" id="atsScoreCard">
+                    <div class="ats-header">
+                        <h2><i class="fas fa-chart-line"></i> ATS Score Analysis</h2>
+                        <div class="overall-score" id="overallScore">
+                            <span class="score-number" id="scoreNumber">0</span>
+                            <span class="score-label">/ 100</span>
+                        </div>
+                    </div>
+                    
+                    <div class="score-breakdown">
+                        <div class="score-item">
+                            <span class="score-label">Keyword Match</span>
+                            <div class="score-bar">
+                                <div class="score-fill" id="keywordScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="keywordScoreValue">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Skill Alignment</span>
+                            <div class="score-bar">
+                                <div class="score-fill" id="skillScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="skillScoreValue">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Experience Relevance</span>
+                            <div class="score-bar">
+                                <div class="score-fill" id="experienceScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="experienceScoreValue">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Format Compliance</span>
+                            <div class="score-bar">
+                                <div class="score-fill" id="formatScore" style="width: 0%"></div>
+                            </div>
+                            <span class="score-value" id="formatScoreValue">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ats-analysis" id="atsAnalysis">
+                        <!-- ATS analysis will be displayed here -->
+                    </div>
+                    
+                    <div class="recommendations" id="recommendations">
+                        <!-- Recommendations will be displayed here -->
+                    </div>
+                </div>
+                
+                <!-- Resume Content Card -->
+                <div class="results-card">
+                    <div class="results-header">
+                        <h2><i class="fas fa-star"></i> Your Tailored Resume</h2>
+                        <button class="copy-btn" id="copyBtn">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                    </div>
+                    
+                    <div class="results-content" id="resultsContent">
+                        <!-- Tailored resume content will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <h3>Processing...</h3>
+                    <p id="loadingText">Analyzing job description and tailoring your resume...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Career-Pilot AI. Built with ❤️ using FastAPI, Ollama, and ChromaDB.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
